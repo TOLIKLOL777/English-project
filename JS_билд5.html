@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перевод слова</title>
+    <style>
+        #gameContainer {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            margin: 20px auto;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        .correct {
+            background-color: rgb(108, 248, 108);
+        }
+
+        .wrong {
+            background-color: rgb(199, 0, 0);
+        }
+
+        .button-container {
+            text-align: center; /* Центрирование текста и кнопок */
+        }
+
+        .options {
+            margin-top: 10px;
+        }
+
+        button.option-button {
+            width: 40%; /* Уменьшенная ширина */
+            margin: 5px 0; 
+            border-radius: 10px; /* Скругленные углы */
+            padding: 10px; /* Отступ внутри кнопки */
+            font-size: 16px; /* Размер шрифта кнопки */
+            cursor: pointer; /* Курсор при наведении на кнопку */
+            display: block; /* Позволяет кнопкам занимать полную ширину родительского контейнера */
+            margin-left: auto; /* Центрирование кнопок */
+            margin-right: auto; /* Центрирование кнопок */
+        }
+
+        #next {
+            display: none;
+        }
+        
+        #score {
+            margin-top: 20px;
+            font-size: 22px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="button-container">
+        <h2>Если 20 баллов при 20 вопросах — Красавчик (если ты ответил на вопрос с первого раза)</h2>
+        <h2>Выберите тему перед началом игры:</h2>
+        <button id="verbsButton" class="option-button">Глаголы</button>
+        <button id="nounsButton" class="option-button">Существительные</button>
+        <button id="adjectivesButton" class="option-button">Прилагательные</button>
+    </div>
+
+    <div id="gameContainer"></div>
+    <div class="options" id="optionsContainer"></div>
+    <div id="result"></div>
+    <div id="score"></div>
+    <div>
+        <button id="next" onclick="startNewRound()">Следующее слово</button>
+    </div>
+</body>
+</html>
+</div>
+
+    <button id="next" onclick="startNewRound()">Следующее слово</button>
+</div>
+
+<script>
+    const verbs = {
+        "run": "бежать",
+        "jump": "прыгать",
+        "swim": "плавать",
+        "write": "писать",
+        "read": "читать",
+        "speak": "говорить(на разных языках)",
+        "listen": "слушать",
+        "dance": "танцевать",
+        "walk": "идти(гулять)",
+        "eat": "кушать(есть)",
+        "think": "думать",
+        "know": "знать",
+        "play": "играть",
+        "sleep": "спать",
+        "drive": "водить",
+        "clean": "убирать(чистить)",
+        "talk": "разговаривать(беседовать)",
+        "learn": "учиться",
+        "visit": "посещать",
+        "feel": "чувствовать",
+    };
+
+    const nouns = {
+        "cat": "кот",
+        "dog": "собака",
+        "tree": "дерево",
+        "house": "дом",
+        "car": "машина",
+        "book": "книга",
+        "computer": "компьютер",
+        "shoe": "обувь",
+        "child": "ребёнок",
+        "friend": "друг",
+        "city": "город",
+        "river": "река",
+        "food": "еда",
+        "school": "школа",
+        "table": "стол",
+        "chair": "стул",
+        "window": "окно",
+        "door": "дверь",
+        "phone": "телефон",
+        "key": "ключ",
+    };
+
+    const adjectives = {
+        "happy": "счастливый",
+        "sad": "грустный",
+        "fast": "быстрый",
+        "slow": "медленный",
+        "big": "большой",
+        "small": "маленький",
+        "bright": "яркий",
+        "dark": "темный",
+        "hot": "горячий",
+        "cold": "холодный",
+        "young": "молодой",
+        "old": "старый",
+        "strong": "сильный",
+        "weak": "слабый",
+        "clean": "чистый",
+        "dirty": "грязный",
+        "beautiful": "красивый",
+        "scary": "страшный",
+        "quiet": "тихий",
+        "loud": "громкий",
+    };
+
+    let words = {};
+    let randomWord = "";
+
+    document.getElementById('verbsButton').onclick = function () {
+        words = verbs;
+        startNewRound();
+    };
+
+    document.getElementById('nounsButton').onclick = function () {
+        words = nouns;
+        startNewRound();
+    };
+
+    document.getElementById('adjectivesButton').onclick = function () {
+        words = adjectives;
+        startNewRound();
+    };
+
+    function startNewRound() {
+        const gameContainer = document.getElementById('gameContainer');
+        const result = document.getElementById('result');
+        gameContainer.className = '';
+        result.textContent = '';
+
+        randomWord = getRandomWord();
+        gameContainer.textContent = randomWord;
+        displayOptions();
+    }
+
+    function displayOptions() {
+        const optionsContainer = document.getElementById('optionsContainer');
+        optionsContainer.innerHTML = ''; // Очищаем контейнер опций
+        const correctTranslation = words[randomWord];
+        const translations = Object.values(words);
+        let options = new Set(translations); // Используем Set, чтобы избежать дублирования
+        
+        // Добавляем правильный перевод в рандомную позицию
+        options.add(correctTranslation);
+
+        // Превращаем Set обратно в массив и случайно перемешиваем
+        options = Array.from(options);
+        options = options.sort(() => Math.random() - 0.5);
+
+        options.forEach((option) => {
+            const button = document.createElement('button');
+            button.textContent = option;
+            button.classList.add('option-button');
+            button.onclick = function () {
+                checkAnswer(option);
+            };
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    function checkAnswer(selectedTranslation) {
+        const gameContainer = document.getElementById('gameContainer');
+        const result = document.getElementById('result');
+
+        if (selectedTranslation === words[randomWord]) {
+            gameContainer.className = 'correct';
+            result.textContent = "Правильно!+1балл(запиши себе куда-нибудь)";
+            document.getElementById('next').style.display = 'inline-block'; // Показываем кнопку "Следующее слово"
+        } else {
+            gameContainer.className = 'wrong';
+            result.textContent = "Неправильно! Попробуйте снова.";
+        }
+    }
+
+    function getRandomWord() {
+        const keys = Object.keys(words);
+        return keys[Math.floor(Math.random() * keys.length)];
+    }
+</script>
+
+</body>
+</html>

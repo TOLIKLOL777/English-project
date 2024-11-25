@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перевод слова</title>
+    <style>
+        #gameContainer {
+            width: 300px;
+            height: 100px;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            margin: 20px auto;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+        .correct {
+            background-color: green;
+        }
+        .wrong {
+            background-color: red;
+        }
+        .button-container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="button-container">
+    <button id="verbsButton">Глаголы</button>
+    <button id="nounsButton">Существительные</button>
+    <button id="adjectivesButton">Прилагательные</button>
+</div>
+
+<div id="gameContainer"></div>
+<input type="text" id="userInput" placeholder="Введите перевод">
+<button id="submit">Проверить</button>
+<div id="result"></div>
+
+<script>
+    const verbs = {
+        "run": "бежать",
+        "jump": "прыгать",
+        "swim": "плавать",
+        "write": "писать",
+        "read": "читать",
+        "speak": "говорить",
+        "listen": "слушать",
+        "dance": "танцевать"
+    };
+
+    const nouns = {
+        "cat": "кот",
+        "dog": "собака",
+        "tree": "дерево",
+        "house": "дом",
+        "car": "машина",
+        "book": "книга",
+        "computer": "компьютер",
+        "shoe": "обувь"
+    };
+
+    const adjectives = {
+        "happy": "счастливый",
+        "sad": "грустный",
+        "fast": "быстрый",
+        "slow": "медленный",
+        "big": "большой",
+        "small": "маленький",
+        "bright": "яркий",
+        "dark": "темный"
+    };
+
+    let words = adjectives; // Начинаем с прилагательных по умолчанию
+    const randomWord = getRandomWord();
+
+    document.getElementById('gameContainer').textContent = randomWord;
+
+    let attempts = 0;
+
+    document.getElementById('submit').onclick = function() {
+        const userTranslation = document.getElementById('userInput').value;
+        const gameContainer = document.getElementById('gameContainer');
+        const result = document.getElementById('result');
+
+        if (userTranslation === words[randomWord]) {
+            gameContainer.className = 'correct';
+            result.textContent = "Правильно!";
+            attempts = 0; // сбрасываем попытки после правильного ответа
+        } else {
+            attempts++;
+            gameContainer.className = 'wrong';
+            result.textContent = "Ошибка! Попробуйте снова.";
+
+            if (attempts >= 3) {
+                gameContainer.style.backgroundColor = 'red';
+                result.textContent = "Вы допустили 3 ошибки. Игра завершена.";
+                document.getElementById('submit').disabled = true;
+            }
+        }
+    };
+
+    document.getElementById('adjectivesButton').onclick = function() {
+        words = adjectives;
+        startNewRound();
+    };
+
+    document.getElementById('verbsButton').onclick = function() {
+        words = verbs;
+        startNewRound();
+    };
+
+    document.getElementById('nounsButton').onclick = function() {
+        words = nouns;
+        startNewRound();
+    };
+
+    function startNewRound() {
+        attempts = 0; // сбрасываем попытки
+        document.getElementById('userInput').value = ''; // очищаем ввод
+        document.getElementById('gameContainer').className = ''; // сбрасываем цвет
+        document.getElementById('gameContainer').style.backgroundColor = ''; // сбрасываем фон
+        const randomWord = getRandomWord();
+        document.getElementById('gameContainer').textContent = randomWord;
+        document.getElementById('result').textContent = ''; // очищаем результат
+        document.getElementById('submit').disabled = false; // разблокируем кнопку
+    }
+
+    function getRandomWord() {
+        const keys = Object.keys(words);
+        return keys[Math.floor(Math.random() * keys.length)];
+    }
+</script>
+
+</body>
+</html>

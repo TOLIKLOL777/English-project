@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перевод слова</title>
+    <style>
+        #gameContainer {
+            width: 300px;
+            height: 100px;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            margin: 20px auto;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        .correct {
+            background-color: green;
+        }
+
+        .wrong {
+            background-color: red;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        .options {
+            margin-top: 10px;
+        }
+
+        button.option-button {
+            width: 100%;
+            margin: 5px 0;
+        }
+
+        #next {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="button-container">
+    <h2>Выберите тему перед началом игры:</h2>
+    <button id="verbsButton">Глаголы</button>
+    <button id="nounsButton">Существительные</button>
+    <button id="adjectivesButton">Прилагательные</button>
+</div>
+
+<div id="gameContainer"></div>
+<div class="options" id="optionsContainer"></div>
+<div id="result"></div>
+<div>
+    <button id="next" onclick="startNewRound()">Следующее слово</button>
+</div>
+
+<script>
+    const verbs = {
+        "run": "бежать",
+        "jump": "прыгать",
+        "swim": "плавать",
+        "write": "писать",
+        "read": "читать",
+        "speak": "говорить",
+        "listen": "слушать",
+        "dance": "танцевать"
+    };
+
+    const nouns = {
+        "cat": "кот",
+        "dog": "собака",
+        "tree": "дерево",
+        "house": "дом",
+        "car": "машина",
+        "book": "книга",
+        "computer": "компьютер",
+        "shoe": "обувь"
+    };
+
+    const adjectives = {
+        "happy": "счастливый",
+        "sad": "грустный",
+        "fast": "быстрый",
+        "slow": "медленный",
+        "big": "большой",
+        "small": "маленький",
+        "bright": "яркий",
+        "dark": "темный"
+    };
+
+    let words = {};
+    let randomWord = "";
+
+    document.getElementById('verbsButton').onclick = function () {
+        words = verbs;
+        startNewRound();
+    };
+
+    document.getElementById('nounsButton').onclick = function () {
+        words = nouns;
+        startNewRound();
+    };
+
+    document.getElementById('adjectivesButton').onclick = function () {
+        words = adjectives;
+        startNewRound();
+    };
+
+    function startNewRound() {
+        const gameContainer = document.getElementById('gameContainer');
+        const result = document.getElementById('result');
+        gameContainer.className = '';
+        result.textContent = '';
+
+        randomWord = getRandomWord();
+        gameContainer.textContent = randomWord;
+        displayOptions();
+    }
+
+    function displayOptions() {
+        const optionsContainer = document.getElementById('optionsContainer');
+        optionsContainer.innerHTML = ''; // Очищаем контейнер опций
+        const correctTranslation = words[randomWord];
+        const translations = Object.values(words);
+        let options = [...translations];
+
+        // Добавляем правильный перевод в рандомную позицию
+        options.splice(Math.floor(Math.random() * options.length), 0, correctTranslation);
+
+        options.forEach((option) => {
+            const button = document.createElement('button');
+            button.textContent = option;
+            button.classList.add('option-button');
+            button.onclick = function () {
+                checkAnswer(option);
+            };
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    function checkAnswer(selectedTranslation) {
+        const gameContainer = document.getElementById('gameContainer');
+        const result = document.getElementById('result');
+
+        if (selectedTranslation === words[randomWord]) {
+            gameContainer.className = 'correct';
+            result.textContent = "Правильно!";
+            document.getElementById('next').style.display = 'inline-block'; // Показываем кнопку "Следующее слово"
+        } else {
+            gameContainer.className = 'wrong';
+            result.textContent = "Неправильно! Попробуйте снова.";
+        }
+    }
+
+    function getRandomWord() {
+        const keys = Object.keys(words);
+        return keys[Math.floor(Math.random() * keys.length)];
+    }
+</script>
+
+</body>
+</html>
