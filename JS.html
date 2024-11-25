@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка слов</title>
+    <style>
+        #gameContainer {
+            width: 300px;
+            height: 100px;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            margin: 20px auto;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+        .correct {
+            background-color: green;
+        }
+        .wrong {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div id="gameContainer"></div>
+<input type="text" id="userInput" placeholder="Введите перевод">
+<button id="submit">Проверить</button>
+<div id="result"></div>
+
+<script>
+    const words = {
+        "apple": "яблоко",
+        "banana": "банан",
+        "orange": "апельсин"
+    };
+
+    const randomWord = Object.keys(words)[Math.floor(Math.random() * Object.keys(words).length)];
+    
+    document.getElementById('gameContainer').textContent = randomWord;
+    
+    let attempts = 0;
+
+    document.getElementById('submit').onclick = function() {
+        const userTranslation = document.getElementById('userInput').value;
+        const gameContainer = document.getElementById('gameContainer');
+        const result = document.getElementById('result');
+        
+        if (userTranslation === words[randomWord]) {
+            gameContainer.className = 'correct';
+            result.textContent = "Правильно!";
+        } else {
+            attempts++;
+            gameContainer.className = 'wrong';
+            result.textContent = "Ошибка! Попробуйте снова.";
+            
+            if (attempts >= 3) {
+                gameContainer.style.backgroundColor = 'red';
+                result.textContent = "Вы допустили 3 ошибки. Игра завершена.";
+                document.getElementById('submit').disabled = true;
+            }
+        }
+    };
+</script>
+
+</body>
+</html>
