@@ -282,14 +282,16 @@
         };
 
         function hideTopicSelection() {
-            document.getElementById('topicSelection').style.display = 'none'; // Hide topic selection
+            document.getElementById('topicSelection').style.display = 'none';
         }
         function again() {
             const allButtons = document.querySelectorAll('.option-button');
+	    // Сброс всех переменных
             used_words = []
             score = 0
             currentQuestion = 0
             allButtons.forEach(button => button.disabled = false);
+	    // Спрятать все кнопки и блоки, заново появление выбора темы
             document.getElementById('topicSelection').style.display = 'block';
             document.getElementById('optionsContainer').style.display = 'none';
             document.getElementById('again').style.display = 'none';
@@ -301,9 +303,9 @@
         }
 
         function startNewRound() {
-            attempts = 0; // Reset attempts for each word
-            currentQuestion++; // Increment the question number
-            updateQuestionCounter(); // Update the question counter in the UI
+            attempts = 0;
+            currentQuestion++; // Увеличение счетчика вопросов
+            updateQuestionCounter();
 
             const gameContainer = document.getElementById('gameContainer');
             const result = document.getElementById('result');
@@ -311,12 +313,12 @@
             gameContainer.className = '';
             result.textContent = '';
             attemptsContainer.textContent = `Осталось попыток: ${maxAttempts - attempts}`;
-            document.getElementById('next').style.display = 'none'; // Hide "Next" button
+            document.getElementById('next').style.display = 'none';
             document.getElementById('gameContainer').style.display = 'flex';
             document.getElementById('optionsContainer').style.display = 'block';
             document.getElementById('questionCounter').style.display = 'flex';
             document.getElementById('attemptsContainer').style.display = 'flex';
-            
+            // Выбор слова которое ещё не давалось
             while (a == true) {
                 randomWord = getRandomWord();
                 if (randomWord == false) {
@@ -338,24 +340,24 @@
 
         function displayOptions() {
             const optionsContainer = document.getElementById('optionsContainer');
-            optionsContainer.innerHTML = ''; // Clear previous options
+            optionsContainer.innerHTML = '';
 
             const correctTranslation = words[randomWord];
             const translations = Object.values(words);
             
-            // Create an array of incorrect options
+            // Создание кнопок с неправильным переводом
             let wrongOptions = translations.filter(translation => translation !== correctTranslation);
             
-            // Shuffle the array of incorrect options
-            wrongOptions = wrongOptions.sort(() => Math.random() - 0.5).slice(0, 4); // Limit to 4 options
+            // Перемешивание кнопок
+            wrongOptions = wrongOptions.sort(() => Math.random() - 0.5).slice(0, 4);
 
-            // Add the correct translation to a random position
+            // Добавление правильноо слова в рандомном месте
             const allOptions = [...wrongOptions, correctTranslation];
             
-            // Shuffle all options
+            // Снова перемешиваем
             const shuffledOptions = allOptions.sort(() => Math.random() - 0.5);
 
-            // Create buttons for the options
+            // Создание из блока кнопку
             shuffledOptions.forEach((option) => {
                 const button = document.createElement('button');
                 button.textContent = option;
@@ -380,24 +382,24 @@
             const correctTranslation = words[randomWord];
             const allButtons = document.querySelectorAll('.option-button');
 
-            // Disable the clicked button after an answer
+            // После выбора кнопка становиться некликабельной
             button.disabled = true;
 
             if (selectedTranslation === correctTranslation) {
                 gameContainer.className = 'correct';
-                score = score + (1 * mult);  // Increment score
+                score = score + (1 * mult);  // Увеличение счёта
                 if (mult == 1) {
                     result.textContent = `Правильно! +${1 * mult} балл`;
                 } else {
                     result.textContent = `Правильно! +${1 * mult} балла`;
                 }
-                updateScore();  // Update score display
-                document.getElementById('next').style.display = 'inline-block'; // Show "Next" button
+                updateScore();  // Обновление счетчика очков
+                document.getElementById('next').style.display = 'inline-block'; // Показ кнопки "Следующее слово"
                 allButtons.forEach(button => button.disabled = true);
                 attemptsContainer.textContent = ''
                 mult = 1
                 if (score >= 20) {
-                    endGame(); // End the game if score reaches 20
+                    endGame(); // Конец игры при наборе 20 очков
                 }
             } else {
                 attempts++;
@@ -410,15 +412,15 @@
                     gameContainer.className = 'wrong';
                     result.textContent = `Неправильно! Правильный ответ: ${correctTranslation}`;
 
-                    // Find the correct button and change its background color to green
+                    // Поиск кнопки с правильным ответом и закрашивание его в зелёный цвет
                     allButtons.forEach(button => {
                         if (button.textContent === correctTranslation) {
-                            button.style.backgroundColor = "rgb(108, 248, 108)"; // Green color
+                            button.style.backgroundColor = "rgb(108, 248, 108)";
                         }
-                        button.disabled = true; // Disable all buttons
+                        button.disabled = true; // Отключение всех кнопок
                     });
 
-                    document.getElementById('next').style.display = 'inline-block'; // Show "Next" button
+                    document.getElementById('next').style.display = 'inline-block';
                     mult = 1
                 }
             }
@@ -435,11 +437,12 @@
             result.textContent = `Поздравляем! Вы набрали ${score} баллов!`;
             attemptsContainer.textContent = '';
             scoreContainer.textContent = `Итоговый счёт: ${score}`;
-            document.getElementById('next').style.display = 'none'; // Hide "Next" button
+            document.getElementById('next').style.display = 'none';
             document.getElementById('again').style.display = 'inline-block';
         }
         function getRandomWord() {
             const keys = Object.keys(words);
+		// Выбор рандомного слова из списка и добавление его в список использованных слов
 			const word = keys[Math.floor(Math.random() * keys.length)];
 			if  (used_words.includes(word)) {
 				return false;
