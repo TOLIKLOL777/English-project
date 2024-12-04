@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Перевод слова</title>
+    <title>ГЏГҐГ°ГҐГўГ®Г¤ Г±Г«Г®ГўГ </title>
     <style>
         #gameContainer {
             width: 300px;
@@ -33,51 +33,51 @@
 <body>
 
 <div class="button-container">
-    <button id="verbsButton">Глаголы</button>
-    <button id="nounsButton">Существительные</button>
-    <button id="adjectivesButton">Прилагательные</button>
+    <button id="verbsButton">ГѓГ«Г ГЈГ®Г«Г»</button>
+    <button id="nounsButton">Г‘ГіГ№ГҐГ±ГІГўГЁГІГҐГ«ГјГ­Г»ГҐ</button>
+    <button id="adjectivesButton">ГЏГ°ГЁГ«Г ГЈГ ГІГҐГ«ГјГ­Г»ГҐ</button>
 </div>
 
 <div id="gameContainer"></div>
-<input type="text" id="userInput" placeholder="Введите перевод">
-<button id="submit">Проверить</button>
+<input type="text" id="userInput" placeholder="Г‚ГўГҐГ¤ГЁГІГҐ ГЇГҐГ°ГҐГўГ®Г¤">
+<button id="submit">ГЏГ°Г®ГўГҐГ°ГЁГІГј</button>
 <div id="result"></div>
 
 <script>
     const verbs = {
-        "run": "бежать",
-        "jump": "прыгать",
-        "swim": "плавать",
-        "write": "писать",
-        "read": "читать",
-        "speak": "говорить",
-        "listen": "слушать",
-        "dance": "танцевать"
+        "run": "ГЎГҐГ¦Г ГІГј",
+        "jump": "ГЇГ°Г»ГЈГ ГІГј",
+        "swim": "ГЇГ«Г ГўГ ГІГј",
+        "write": "ГЇГЁГ±Г ГІГј",
+        "read": "Г·ГЁГІГ ГІГј",
+        "speak": "ГЈГ®ГўГ®Г°ГЁГІГј",
+        "listen": "Г±Г«ГіГёГ ГІГј",
+        "dance": "ГІГ Г­Г¶ГҐГўГ ГІГј"
     };
 
     const nouns = {
-        "cat": "кот",
-        "dog": "собака",
-        "tree": "дерево",
-        "house": "дом",
-        "car": "машина",
-        "book": "книга",
-        "computer": "компьютер",
-        "shoe": "обувь"
+        "cat": "ГЄГ®ГІ",
+        "dog": "Г±Г®ГЎГ ГЄГ ",
+        "tree": "Г¤ГҐГ°ГҐГўГ®",
+        "house": "Г¤Г®Г¬",
+        "car": "Г¬Г ГёГЁГ­Г ",
+        "book": "ГЄГ­ГЁГЈГ ",
+        "computer": "ГЄГ®Г¬ГЇГјГѕГІГҐГ°",
+        "shoe": "Г®ГЎГіГўГј"
     };
 
     const adjectives = {
-        "happy": "счастливый",
-        "sad": "грустный",
-        "fast": "быстрый",
-        "slow": "медленный",
-        "big": "большой",
-        "small": "маленький",
-        "bright": "яркий",
-        "dark": "темный"
+        "happy": "Г±Г·Г Г±ГІГ«ГЁГўГ»Г©",
+        "sad": "ГЈГ°ГіГ±ГІГ­Г»Г©",
+        "fast": "ГЎГ»Г±ГІГ°Г»Г©",
+        "slow": "Г¬ГҐГ¤Г«ГҐГ­Г­Г»Г©",
+        "big": "ГЎГ®Г«ГјГёГ®Г©",
+        "small": "Г¬Г Г«ГҐГ­ГјГЄГЁГ©",
+        "bright": "ГїГ°ГЄГЁГ©",
+        "dark": "ГІГҐГ¬Г­Г»Г©"
     };
 
-    let words = adjectives; // Начинаем с прилагательных по умолчанию
+    let words = adjectives; // ГЌГ Г·ГЁГ­Г ГҐГ¬ Г± ГЇГ°ГЁГ«Г ГЈГ ГІГҐГ«ГјГ­Г»Гµ ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ
     const randomWord = getRandomWord();
 
     document.getElementById('gameContainer').textContent = randomWord;
@@ -91,16 +91,16 @@
 
         if (userTranslation === words[randomWord]) {
             gameContainer.className = 'correct';
-            result.textContent = "Правильно!";
-            attempts = 0; // сбрасываем попытки после правильного ответа
+            result.textContent = "ГЏГ°Г ГўГЁГ«ГјГ­Г®!";
+            attempts = 0; // Г±ГЎГ°Г Г±Г»ГўГ ГҐГ¬ ГЇГ®ГЇГ»ГІГЄГЁ ГЇГ®Г±Г«ГҐ ГЇГ°Г ГўГЁГ«ГјГ­Г®ГЈГ® Г®ГІГўГҐГІГ 
         } else {
             attempts++;
             gameContainer.className = 'wrong';
-            result.textContent = "Ошибка! Попробуйте снова.";
+            result.textContent = "ГЋГёГЁГЎГЄГ ! ГЏГ®ГЇГ°Г®ГЎГіГ©ГІГҐ Г±Г­Г®ГўГ .";
 
             if (attempts >= 3) {
                 gameContainer.style.backgroundColor = 'red';
-                result.textContent = "Вы допустили 3 ошибки. Игра завершена.";
+                result.textContent = "Г‚Г» Г¤Г®ГЇГіГ±ГІГЁГ«ГЁ 3 Г®ГёГЁГЎГЄГЁ. Г€ГЈГ°Г  Г§Г ГўГҐГ°ГёГҐГ­Г .";
                 document.getElementById('submit').disabled = true;
             }
         }
@@ -122,14 +122,14 @@
     };
 
     function startNewRound() {
-        attempts = 0; // сбрасываем попытки
-        document.getElementById('userInput').value = ''; // очищаем ввод
-        document.getElementById('gameContainer').className = ''; // сбрасываем цвет
-        document.getElementById('gameContainer').style.backgroundColor = ''; // сбрасываем фон
+        attempts = 0; // Г±ГЎГ°Г Г±Г»ГўГ ГҐГ¬ ГЇГ®ГЇГ»ГІГЄГЁ
+        document.getElementById('userInput').value = ''; // Г®Г·ГЁГ№Г ГҐГ¬ ГўГўГ®Г¤
+        document.getElementById('gameContainer').className = ''; // Г±ГЎГ°Г Г±Г»ГўГ ГҐГ¬ Г¶ГўГҐГІ
+        document.getElementById('gameContainer').style.backgroundColor = ''; // Г±ГЎГ°Г Г±Г»ГўГ ГҐГ¬ ГґГ®Г­
         const randomWord = getRandomWord();
         document.getElementById('gameContainer').textContent = randomWord;
-        document.getElementById('result').textContent = ''; // очищаем результат
-        document.getElementById('submit').disabled = false; // разблокируем кнопку
+        document.getElementById('result').textContent = ''; // Г®Г·ГЁГ№Г ГҐГ¬ Г°ГҐГ§ГіГ«ГјГІГ ГІ
+        document.getElementById('submit').disabled = false; // Г°Г Г§ГЎГ«Г®ГЄГЁГ°ГіГҐГ¬ ГЄГ­Г®ГЇГЄГі
     }
 
     function getRandomWord() {
