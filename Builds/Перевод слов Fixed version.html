@@ -91,12 +91,13 @@
     <script>
         let score = 0.0;
         let attempts = 0;
-        const maxAttempts = 1;
+        const maxAttempts = 2;
         let words = {};
         let randomWord = "";
-		let a = true;
+	let a = true;
         let mult = 1; // Множитель очков
         let currentQuestion = 0;
+	var used_words = [];
 
         const verbs = {
             "be": "быть",
@@ -261,7 +262,6 @@
             "major": "главный (важный)",
             "specific": "специфичный (необычный)"
         };
-		var used_words = [];
 
         document.getElementById('verbsButton').onclick = function () {
             words = verbs;
@@ -403,7 +403,7 @@
                 allButtons.forEach(button => button.disabled = true);
                 attemptsContainer.textContent = ''
                 mult = 1
-                if (score >= 2) {
+                if (score >= 20) {
                     endGame(); // Конец игры при наборе 20 очков
                 }
             } else {
