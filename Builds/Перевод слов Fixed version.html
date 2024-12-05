@@ -300,7 +300,7 @@
             document.getElementById('gameContainer').style.display = 'none';
             document.getElementById('result').style.display = 'none';
             document.getElementById('score').style.display = 'none';
-			document.getElementById('gameContainer').style.fontSize = "44px";
+	    document.getElementById('gameContainer').style.fontSize = "44px";
         }
 
         function startNewRound() {
@@ -319,11 +319,11 @@
             document.getElementById('questionCounter').style.display = 'flex';
             document.getElementById('attemptsContainer').style.display = 'flex';
             // Проверка остались ли ещё неиспользованые слова
-			if (used_words.length == Object.keys(words).length){
-					endGame();
-					a = false;
+	    if (used_words.length == Object.keys(words).length){
+	    	endGame();
+		a = false;
 			}
-			// Выбор слова которое ещё не давалось
+	    // Выбор слова которое ещё не давалось
             while (a == true) {
                 randomWord = getRandomWord();
                 if (randomWord == false) {
@@ -350,19 +350,11 @@
             const correctTranslation = words[randomWord];
             const translations = Object.values(words);
             
-            // Создание кнопок с неправильным переводом
+            // Перемешивание кнопок со словами
             let wrongOptions = translations.filter(translation => translation !== correctTranslation);
-            
-            // Перемешивание кнопок
             wrongOptions = wrongOptions.sort(() => Math.random() - 0.5).slice(0, 4);
-
-            // Добавление правильноо слова в рандомном месте
             const allOptions = [...wrongOptions, correctTranslation];
-            
-            // Снова перемешиваем
             const shuffledOptions = allOptions.sort(() => Math.random() - 0.5);
-
-            // Создание из блока кнопку
             shuffledOptions.forEach((option) => {
                 const button = document.createElement('button');
                 button.textContent = option;
