@@ -52,6 +52,14 @@
 
         #next {
             display: none;
+			margin: 20px;
+			width: 10%;
+			border-radius: 15px; 
+            padding: 5px; 
+            font-size: 15px;
+            cursor: pointer;
+			margin-left: auto;
+            margin-right: auto;
         }
 
         #again {
@@ -434,7 +442,7 @@
                     result.textContent = `Правильно! +${1 * mult} балла`;
                 }
                 updateScore();  // Обновление счетчика очков
-                document.getElementById('next').style.display = 'inline-block'; // Показ кнопки "Следующее слово"
+                document.getElementById('next').style.display = 'grid'; // Показ кнопки "Следующее слово"
                 allButtons.forEach(button => button.disabled = true);
                 attemptsContainer.textContent = ''
                 mult = 1
