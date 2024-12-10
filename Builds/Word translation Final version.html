@@ -52,13 +52,13 @@
 
         #next {
             display: none;
-	    margin: 20px;
-	    width: 10%;
-	    border-radius: 15px; 
+	        margin: 20px;
+	        width: 10%;
+	        border-radius: 15px; 
             padding: 6px; 
             font-size: 15px;
             cursor: pointer;
-	    margin-left: auto;
+	        margin-left: auto;
             margin-right: auto;
         }
 
@@ -102,10 +102,10 @@
         const maxAttempts = 2;
         let words = {};
         let randomWord = "";
-	let a = true;
+	    let a = true;
         let mult = 1; // Множитель очков
         let currentQuestion = 0;
-	var used_words = [];
+	    var used_words = [];
 
         const verbs = {
             "be": "быть",
@@ -166,49 +166,49 @@
             "follow": "следовать",
             "stop": "останавливать",
             "create": "созидать",
-	    "speak": "разговаривать",
-	    "read": "читать",
-	    "spend": "тратить",
-	    "grow": "расти",
-	    "open": "открывать",
-	    "walk": "идти",
-	    "win": "побеждать",
-	    "offer": "предлагать",
-	    "remember": "помнить",
-	    "love": "любить",
-	    "consider": "рассматривать",
-	    "appear": "появляться",
-	    "buy": "покупать",
-	    "wait": "ждать",
-	    "serve": "обслуживать",
-	    "die": "умирать",
-	    "send": "отправлять",
-	    "expect": "ожидать",
-	    "build": "строить",
-	    "stay": "стоять",
-	    "fall": "падать",
-	    "cut": "резать",
-	    "reach": "достигать",
-	    "kill": "убивать",
-	    "remain": "оставаться",
-	    "suggest": "предлагать",
-	    "raise": "поднимать",
-	    "pass": "проходить",
-	    "sell": "продавать",
-	    "require": "требовать",
-	    "report": "сообщать",
-	    "decide": "решить",
-	    "pull": "заполнять",
-	    "return": "возвращать",
-	    "explain": "объяснять",
-	    "hope": "надеяться",
-	    "develop": "разрабатывать",
-	    "carry": "нести",
-	    "break": "ломать",
-	    "receive": "получать",
-	    "agree": "соглашаться",
-	    "support": "поддерживать"
-	};
+	        "speak": "разговаривать",
+	        "read": "читать",
+	        "spend": "тратить",
+	        "grow": "расти",
+	        "open": "открывать",
+	        "walk": "идти",
+	        "win": "побеждать",
+	        "offer": "предлагать",
+	        "remember": "помнить",
+	        "love": "любить",
+	        "consider": "рассматривать",
+	        "appear": "появляться",
+	       "buy": "покупать",
+	        "wait": "ждать",
+	        "serve": "обслуживать",
+	        "die": "умирать",
+	        "send": "отправлять",
+	        "expect": "ожидать",
+	        "build": "строить",
+	        "stay": "стоять",
+	        "fall": "падать",
+	        "cut": "резать",
+	        "reach": "достигать",
+	        "kill": "убивать",
+	        "remain": "оставаться",
+	        "suggest": "предлагать",
+	        "raise": "поднимать",
+	        "pass": "проходить",
+	        "sell": "продавать",
+	        "require": "требовать",
+	        "report": "сообщать",
+	        "decide": "решить",
+	        "pull": "заполнять",
+	        "return": "возвращать",
+	        "explain": "объяснять",
+	        "hope": "надеяться",
+	        "develop": "разрабатывать",
+	        "carry": "нести",
+	        "break": "ломать",
+	        "receive": "получать",
+	        "agree": "соглашаться",
+	        "support": "поддерживать"
+	    };
 
         const nouns = {
             "time": "время",
@@ -261,11 +261,11 @@
             "health": "здоровье",
             "school": "школа",
             "state": "состояние",
-	    "apple": "яблоко"
+	        "apple": "яблоко"
         };
 
         const adjectives = {
-	    "good": "хороший",
+	        "good": "хороший",
             "new": "новый",
             "first": "первый",
             "last": "последний",
@@ -351,7 +351,7 @@
             document.getElementById('gameContainer').style.display = 'none';
             document.getElementById('result').style.display = 'none';
             document.getElementById('score').style.display = 'none';
-	    document.getElementById('gameContainer').style.fontSize = "44px";
+	        document.getElementById('gameContainer').style.fontSize = "44px";
         }
 
         function startNewRound() {
@@ -370,11 +370,11 @@
             document.getElementById('questionCounter').style.display = 'flex';
             document.getElementById('attemptsContainer').style.display = 'flex';
             // Проверка остались ли ещё неиспользованые слова
-	    if (used_words.length == Object.keys(words).length){
-	    	endGame();
-		a = false;
-			}
-	    // Выбор слова которое ещё не давалось
+	        if (used_words.length == Object.keys(words).length){
+	        	endGame();
+	    	    a = false;
+	    		}
+	        // Выбор слова которое ещё не давалось
             while (a == true) {
                 randomWord = getRandomWord();
                 if (randomWord == false) {
